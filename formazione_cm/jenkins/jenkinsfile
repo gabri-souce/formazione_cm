@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"           // tag dinamico
-        ANSIBLE_PLAYBOOK = "site.yml"
+        ANSIBLE_PLAYBOOK = "formazione_cm/site.yml"
         VAULT_PASS = "vault/pass.rtf"
         REGISTRY = "localhost:5000"
     }
