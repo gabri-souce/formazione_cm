@@ -1,0 +1,15 @@
+---
+- name: Configura Docker Registry e Build Container
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  vars_files:
+    - group_vars/all/common.yml
+  
+  roles:
+    - role: registry
+      tags: registry
+    - role: container_build
+      tags: build
+    - role: container_deploy
+      tags: deploy

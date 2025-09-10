@@ -1,0 +1,5 @@
+vault_registry_user: "admin"
+vault_registry_password: "securepassword123!"
+vault_ssh_user_password: "secure_ssh_password_456!"
+vault_jenkins_user: "jenkinsadmin"
+vault_jenkins_password: "jenkinspass789!"

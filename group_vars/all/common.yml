@@ -1,0 +1,50 @@
+# Configurazione container engine
+container_engine: "docker"
+container_cli: "{{ 'podman' if container_engine == 'podman' else 'docker' }}"
+
+# Configurazione specifica per macOS
+ansible_become: no  # Disabilita sudo su macOS
+is_macos: "{{ ansible_os_family == 'Darwin' }}"
+
+# Registry configuration
+registry_name: "localhost:5000"
+registry_port: 5000
+registry_data_dir: "{{ '/var/lib/registry' if not is_macos else '~/registry-data' }}"
+
+# Container images configuration
+containers:
+  - name: "alpine-ssh"
+    base_image: "alpine:latest"
+    ssh_port: 2222
+    dockerfile: "images/alpine/Dockerfile"
+    context: "images/alpine/"
+    tags: ["latest"]
+  - name: "ubuntu-ssh" 
+    base_image: "ubuntu:20.04"
+    ssh_port: 2223
+    dockerfile: "images/ubuntu/Dockerfile"
+    context: "images/ubuntu/"
+    tags: ["latest"]
+  - name: "jenkins"
+    base_image: "jenkins/jenkins:lts"
+    web_port: 8080
+    agent_port: 50000
+    dockerfile: "images/jenkins/Dockerfile"
+    context: "images/jenkins/"
+    tags: ["latest"]
+    volumes:
+      - "jenkins-data:/var/jenkins_home"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+# SSH Configuration
+ssh_user: "ansible-user"
+ssh_public_key: "files/ssh-keys/id_rsa.pub"
+ssh_private_key: "files/ssh-keys/id_rsa"
+
+# Aggiungi in fondo:
+vault_registry_user: "{{ vault_registry_user }}"
+vault_registry_password: "{{ vault_registry_password }}"
+ssh_user_password: "{{ vault_ssh_user_password }}"
+jenkins_user: "{{ vault_jenkins_user }}"
+jenkins_password: "{{ vault_jenkins_password }}"
+
