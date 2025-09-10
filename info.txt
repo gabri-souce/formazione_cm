@@ -1,7 +1,11 @@
-gabrieleinguscio@MBP-di-Gabriele formazione_cm % ansible-playbook -i inventory.ini container-playbook.yml \
+###gabrieleinguscio@MBP-di-Gabriele formazione_cm % ansible-playbook -i inventory.ini container-playbook.yml \
   --vault-password-file .vault-pass \
   -e "container_engine=docker"
 
-  gabrieleinguscio@MBP-di-Gabriele formazione_cm % docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+###gabrieleinguscio@MBP-di-Gabriele formazione_cm % docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+
+###nel progetto è presente il file .vault-pass che viene eseguito nel percoso del comando di lancio del playbook per non inserire la password manualmente,
+tale file è presente solo perche siamo in test o per controllare il progetto ma in produzione non va inserito.
+comando corretto : ansible-playbook -i inventory.ini container-playbook.yml -e "container_engine=docker" 
 
   
