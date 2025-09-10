@@ -1,0 +1,26 @@
+---
+- name: Configura Docker Registry e Build Container
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  vars_files:
+    - group_vars/all/common.yml
+  
+  environment:
+    DOCKER_HOST: "unix:///var/run/docker.sock"
+  
+  tasks:
+    - name: Set Docker socket permissions
+      become: yes
+      file:
+        path: /var/run/docker.sock
+        mode: '0666'
+      when: ansible_os_family != "Darwin"
+  
+  roles:
+    - role: registry
+      tags: registry
+    - role: container_build
+      tags: build
+    - role: container_deploy
+      tags: deploy

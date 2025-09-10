@@ -1,0 +1,30 @@
+---
+- name: Deploy Pipeline Application
+  hosts: pipeline-target
+  vars_files:
+    - group_vars/all/common.yml
+    - group_vars/all/vault.yml
+  
+  tasks:
+    - name: Stop and remove existing container
+      command: "{{ container_cli }} stop pipeline-app || true"
+      failed_when: false
+    
+    - name: Remove container
+      command: "{{ container_cli }} rm pipeline-app || true"
+      failed_when: false
+    
+    - name: Deploy new version
+      command: >
+        {{ container_cli }} run -d --name pipeline-app
+        -p 8081:80
+        --restart=unless-stopped
+        {{ registry_name }}/pipeline-app:{{ image_tag }}
+    
+    - name: Verify deployment
+      command: "{{ container_cli }} ps --filter name=pipeline-app"
+      register: deployment_status
+    
+    - name: Show deployment status
+      debug:
+        msg: "Deployment status: {{ deployment_status.stdout }}"
