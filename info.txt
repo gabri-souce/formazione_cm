@@ -1,7 +1,0 @@
-gabrieleinguscio@MBP-di-Gabriele formazione_cm % ansible-playbook -i inventory.ini container-playbook.yml \
-  --vault-password-file .vault-pass \
-  -e "container_engine=docker"
-
-  gabrieleinguscio@MBP-di-Gabriele formazione_cm % docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-
-  
