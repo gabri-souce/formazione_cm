@@ -10,7 +10,8 @@
     path: "{{ playbook_dir }}/{{ ssh_private_key }}"
     type: rsa
     size: 2048
-    force: no
+    force: true
+    state: present
 
 - name: Read SSH public key content
   slurp:
