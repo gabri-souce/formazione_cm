@@ -1,4 +1,4 @@
-📋 Formazione CM - Pipeline CI/CD con Ansible, Docker e Jenkins
+📋 Formazione CM - Pipeline CI/CD con Ansible, Docker e Jenkins  !!!LEGGERE FILE info.txt!!!
 
 🚀 Panoramica del Progetto
 
